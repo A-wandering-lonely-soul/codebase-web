@@ -1,18 +1,15 @@
 # codebase-web
 
-这个仓库的页面是官方 [codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp) `v0.12.1` 的 `graph-ui`，放在同名目录里，方便直接合并上游前端改动。MIT 许可证在仓库根目录的 `LICENSE`，第三方说明在 `graph-ui/THIRD_PARTY.md`。
+`master` 上跑的是三个页签：图谱、项目、控制。项目、控制、新建索引和删除确认按设计图排了版。图谱是画布上的点云，悬停可看节点信息。数据来自本机官方服务 `127.0.0.1:9749`。
 
-相对上游只动了两处：
-
-- `graph-ui/src/main.tsx` 多了一行，挂上版本提示
-- `graph-ui/src/jizhi/` 是这边加的。官方配置修订不是 `"3"`，或图数据、项目列表缺了这版页面要读的字段时，页面顶部会提示
-
-数据仍来自本机官方服务 `127.0.0.1:9749`。官方开发代理只接受 `localhost:5173` 和 `127.0.0.1:5173`。
+`graph-ui/` 是官方 `v0.12.1` 前端，留着对照和以后合并上游，当前开发命令不会启动它。
 
 ```powershell
 bun install
 bun run dev
 ```
+
+打开 `http://127.0.0.1:5173`。官方服务要先在 `9749` 上运行。
 
 ## 合并上游前端
 
@@ -27,4 +24,4 @@ git checkout main
 git merge upstream-graph-ui
 ```
 
-合并后看 `graph-ui/src/main.tsx` 是否还留着 `installContractNotice`。`src/jizhi/` 不在上游，合并不会删掉它。官方数据约定变了的话，改 `graph-ui/src/jizhi/contract.ts` 里的修订号。
+官方数据约定写在 `src/contract.ts`。配置修订不是 `"3"`，或图数据、项目列表缺字段时，页面顶部会提示。
