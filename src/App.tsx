@@ -1,7 +1,7 @@
 /** @jsxRuntime automatic */
 /** @jsxImportSource react */
 import { useCallback, useEffect, useState } from 'react';
-import { codebaseApiIsProxied, deleteProject, fetchConfig, fetchHealth, fetchProjects, type ProjectHealth } from './api';
+import { codebaseApiIsProxied, configureCodebaseApi, deleteProject, fetchConfig, fetchHealth, fetchProjects, type ProjectHealth } from './api';
 import type { ContractMessage } from './contract';
 import { ControlView } from './ControlView';
 import { GraphView } from './GraphView';
@@ -14,9 +14,11 @@ type Tab = 'graph' | 'project' | 'control';
 type AppProps = {
   initialTab?: Tab;
   initialProject?: string;
+  apiBase?: string;
 };
 
-export function App({ initialTab = 'project', initialProject = '' }: AppProps) {
+export function App({ initialTab = 'project', initialProject = '', apiBase = '' }: AppProps) {
+  if (apiBase) configureCodebaseApi(apiBase);
   const [tab, setTab] = useState<Tab>(initialTab);
   const [connected, setConnected] = useState(false);
   const [revision, setRevision] = useState('');
